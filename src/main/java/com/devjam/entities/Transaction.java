@@ -4,8 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
 
 @Entity
+@Data
 public class Transaction extends BaseEntity{
 
     @Id
@@ -21,7 +23,4 @@ public class Transaction extends BaseEntity{
     private String createdAt;
 
     private int CCId;
-
-
-
 }
