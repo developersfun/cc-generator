@@ -2,6 +2,7 @@ package com.devjam.kafka.consumer;
 
 import com.devjam.dto.TransactionList;
 import com.devjam.entities.Transaction;
+import com.devjam.kafka.producer.KafkaProducer;
 import com.devjam.service.StatementGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -17,6 +18,9 @@ import java.util.List;
 public class TransactionsConsumer {
 
     @Autowired
+    KafkaProducer kafkaProducer;
+
+    @Autowired
     StatementGenerator generator;
 
     @Autowired
@@ -24,8 +28,14 @@ public class TransactionsConsumer {
 
     @KafkaListener(topics = "transaction-topic", groupId = "group-1", containerFactory = "kafkaListenerContainerFactory", autoStartup = "false")
     public void listenAsObject(@Payload String payload, Acknowledgment acknowledgment) {
-        TransactionList transactionList = gson.fromJson(payload, TransactionList.class);;
-        generator.generateStatement(transactionList);
-        acknowledgment.acknowledge();
+        try{
+            TransactionList transactionList = gson.fromJson(payload, TransactionList.class);
+            ;
+            generator.generateStatement(transactionList);
+        }catch (Exception ex){
+            kafkaProducer.sendMessage("retry", payload);
+        }finally {
+            acknowledgment.acknowledge();
+        }
     }
 }

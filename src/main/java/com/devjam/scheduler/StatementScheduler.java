@@ -6,13 +6,13 @@ import com.devjam.repo.TransactionRepo;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.sql.SQLException;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @SpringBootApplication
@@ -21,9 +21,11 @@ import java.util.List;
 @Slf4j
 public class StatementScheduler {
 
-    private final KafkaProducer kafkaProducer;
+    @Autowired
+    private KafkaProducer kafkaProducer;
 
-    private final TransactionRepo tnxRepo;
+    @Autowired
+    private TransactionRepo tnxRepo;
 
     private Gson gs = new Gson();
 
