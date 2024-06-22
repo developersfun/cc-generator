@@ -14,9 +14,11 @@ public class Transaction extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
-    private String transectionName;
+    private int user_id;
 
-    private long transectionAmount;
+    private String transaction_Date;
+
+    private long transactionAmount;
 
     private String updatedAt;
 
