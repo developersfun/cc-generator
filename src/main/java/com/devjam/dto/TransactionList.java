@@ -10,4 +10,8 @@ import java.util.List;
 @Getter
 public class TransactionList {
     private List<Transaction> transactionList;
+
+    public List<Transaction> getTransactionList(){
+        return transactionList;
+    }
 }
