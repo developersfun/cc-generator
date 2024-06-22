@@ -1,4 +1,4 @@
-package com.devjam.kafka.producer;
+package com.devjam.kafka.consumer;
 
 import com.devjam.dto.TransactionList;
 import com.devjam.entities.Transaction;

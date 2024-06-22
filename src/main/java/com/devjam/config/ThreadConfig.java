@@ -17,7 +17,7 @@ public class ThreadConfig {
     @Value("${thread.queue.capacity}")
     private int threadQueueCapacity;
 
-    @Bean
+    @Bean(name = "statementGenerator")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(corePoolSize);
